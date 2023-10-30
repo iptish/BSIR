@@ -11,8 +11,15 @@ def interest_from_limit(delta_days,fees,multiplier,spread,limit):
   
   
 def limit_from_interest(delta_days,fees,multiplier,spread,interest):
-  factor = (1-interest/100)**(delta.days/365)
+  print("Interest rate: {}%".format(str(round(interest, 2))))
+  print("deltadays: {}%".format(str(delta_days)))
+  print("multiplier: {}%".format(str(multiplier)))
+  print("spread: {}%".format(str(spread)))
+  print("fees: {}%".format(str(round(fees, 2))))
+  factor = (1-interest/100)**(delta_days/365)
+  print("factor: {}".format(str(round(factor, 5))))
   limit = - spread*factor - fees / multiplier
+  print("limit: {}".format(str(round(limit, 2))))
   return limit
   
 # time span in days

@@ -14,6 +14,11 @@ import  tkcalendar as tkc
 
 def update_interest():
   delta = end.get_date() - start.get_date()
+  diffdays.config(state= "normal")
+  diffdays.delete(0, 'end')
+  diffdays.insert(0,"{}".format(delta.days))
+  diffdays.config(state= "readonly")
+  
   fees = float(entry_fees.get()) + float(exit_fees.get())
   interest_rate = interest_from_limit(delta.days,fees,int(multiplier.get()),int(spread.get()),float(entry_limit.get()))
   mystr = "{:.3f}".format(interest_rate)
@@ -24,11 +29,17 @@ def update_interest():
   
 def update_limit():
   delta = end.get_date() - start.get_date()
+  diffdays.config(state= "normal")
+  diffdays.delete(0, 'end')
+  diffdays.insert(0,"{}".format(delta.days))
+  diffdays.config(state= "readonly")
+  
   fees = float(entry_fees.get()) + float(exit_fees.get())
-  interest_rate = interest_from_limit(delta.days,fees,int(multiplier.get()),int(spread.get()),float(entry_limit.get()))
+  #interest_rate = interest_from_limit(delta.days,fees,int(multiplier.get()),int(spread.get()),float(entry_limit.get()))
   limit = limit_from_interest(delta.days,fees,int(multiplier.get()),int(spread.get()),float(interest.get()))
   mystr = "{:.2f}".format(limit)
   #entry_limit.config(state= "normal")
+  print("limit::: {}".format(str(round(limit, 2))))
   entry_limit.delete(0, 'end')
   entry_limit.insert(0,mystr)
   #entry_limit.config(state= "readonly")
@@ -50,8 +61,9 @@ tk.Label(master, text="entry fees").grid(row=2)
 tk.Label(master, text="exit fees").grid( row=3)
 tk.Label(master, text="starting date").grid(row=4)
 tk.Label(master, text="ending date").grid( row=5)
-tk.Label(master, text="entry limit").grid(row=6)
-tk.Label(master, text="interest rate (%)").grid(row=7)
+tk.Label(master, text="diff. in days").grid( row=6)
+tk.Label(master, text="entry limit").grid(row=7)
+tk.Label(master, text="interest rate (%)").grid(row=8)
 
   
 
@@ -69,6 +81,9 @@ exit_fees.insert(0,"5.08")
 start = tkc.DateEntry(master) # defaults to today
 end = tkc.DateEntry(master)
 end.set_date(datetime.date(2024, 1, 19))
+diffdays = tk.Entry(master)
+diffdays.insert(0,"0")
+diffdays.config(state= "readonly")
 entry_limit = tk.Entry(master)
 entry_limit.insert(0,"-4900.0")
 interest = tk.Entry(master)
@@ -79,11 +94,12 @@ entry_fees.grid(column=1, row=2)
 exit_fees.grid(column=1, row=3)
 start.grid(column=1, row=4)
 end.grid(column=1, row=5)
-entry_limit.grid(column=1, row=6)
-interest.grid(column=1, row=7)
+diffdays.grid(column=1, row=6)
+entry_limit.grid(column=1, row=7)
+interest.grid(column=1, row=8)
 
-button_lim.grid(column=2, row = 6)
-button_int.grid(column=2, row = 7)
+button_lim.grid(column=2, row = 7)
+button_int.grid(column=2, row = 8)
 
     
 
