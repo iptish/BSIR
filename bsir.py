@@ -6,7 +6,7 @@ import datetime
 
 def interest_from_limit(delta_days,fees,multiplier,spread,limit):
   factor = (-limit - fees/multiplier) / spread
-  interest =  (1 - factor**(365/delta_days))*100
+  interest =  (1 - factor**(-365/delta_days))*100
   return interest
   
   
